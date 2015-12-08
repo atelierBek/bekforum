@@ -6,9 +6,17 @@ echo (!empty($titre))?'<title>'.$titre.'</title>':'<title> Bek Forum </title>';
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" media="screen" type="text/css" title="Design" href="./style/style.css" />
+<?php
+$balises=(isset($balises))?$balises:0;
+if($balises)
+{
+  echo '<script type="text/javascript" src="scripts/script.js"></script>';
+}
+?>
 </head>
 <?php
 
+// DEBUG
 ini_set('display_startup_errors', '1');
 ini_set('display_errors','1');
 
