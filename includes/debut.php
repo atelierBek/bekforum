@@ -5,7 +5,16 @@
 echo (!empty($titre))?'<title>'.$titre.'</title>':'<title> Bek Forum </title>';
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" media="screen" type="text/css" title="Design" href="./style/style.css" />
+
+<!-- Utilise CSS 
+<link rel="stylesheet" type="text/css" href="style/style.css">-->
+
+<!-- Utilise LESS -->
+<link rel="stylesheet/less" type="text/css" href="style/style.less">
+
+<!--LESS-->
+<script src="./scripts/less.min.js" type="text/javascript"></script>
+
 <?php
 $balises=(isset($balises))?$balises:0;
 if($balises)

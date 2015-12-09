@@ -159,7 +159,81 @@ switch($action)
                   Cliquez <a href="./voirtopic.php?t='.$topic.'&amp;page='.$page.'#p_'.$nouveaupost.'">ici</a> pour le voir</p>';
                 }//Fin du else
                 break;
-                
+
+                case "repondremp": //Si on veut répondre
+
+                //On récupère le titre et le message
+                $message = $_POST['message'];
+                $titre = $_POST['titre'];
+                $temps = time();
+
+                //On récupère la valeur de l'id du destinataire
+                $dest = (int) $_GET['dest'];
+
+                //Enfin on peut envoyer le message
+
+                $query=$db->prepare('INSERT INTO forum_mp
+                  (mp_expediteur, mp_receveur, mp_titre, mp_text, mp_time, mp_lu)
+                  VALUES(:id, :dest, :titre, :txt, :tps, "0")');
+                  $query->bindValue(':id',$id,PDO::PARAM_INT);
+                  $query->bindValue(':dest',$dest,PDO::PARAM_INT);
+                  $query->bindValue(':titre',$titre,PDO::PARAM_STR);
+                  $query->bindValue(':txt',$message,PDO::PARAM_STR);
+                  $query->bindValue(':tps',$temps,PDO::PARAM_INT);
+                  $query->execute();
+                  $query->CloseCursor();
+
+                  echo'<p>Votre message a bien été envoyé!<br />
+                  <br />Cliquez <a href="./index.php">ici</a> pour revenir à l index du
+                  forum<br />
+                  <br />Cliquez <a href="./messagesprives.php">ici</a> pour retourner
+                  à la messagerie</p>';
+
+                  break;
+
+                  case "nouveaump": //On envoie un nouveau mp
+
+                  //On récupère le titre et le message
+                  $message = $_POST['message'];
+                  $titre = $_POST['titre'];
+                  $temps = time();
+                  $dest = $_POST['to'];
+
+                  //On récupère la valeur de l'id du destinataire
+                  //Il faut déja vérifier le nom
+
+                  $query=$db->prepare('SELECT membre_id FROM forum_membres
+                    WHERE LOWER(membre_pseudo) = :dest');
+                    $query->bindValue(':dest',strtolower($dest),PDO::PARAM_STR);
+                    $query->execute();
+                    if($data = $query->fetch())
+                    {
+                      $query=$db->prepare('INSERT INTO forum_mp
+                        (mp_expediteur, mp_receveur, mp_titre, mp_text, mp_time, mp_lu)
+                        VALUES(:id, :dest, :titre, :txt, :tps, :lu)');
+                        $query->bindValue(':id',$id,PDO::PARAM_INT);
+                        $query->bindValue(':dest',(int) $data['membre_id'],PDO::PARAM_INT);
+                        $query->bindValue(':titre',$titre,PDO::PARAM_STR);
+                        $query->bindValue(':txt',$message,PDO::PARAM_STR);
+                        $query->bindValue(':tps',$temps,PDO::PARAM_INT);
+                        $query->bindValue(':lu','0',PDO::PARAM_STR);
+                        $query->execute();
+                        $query->CloseCursor();
+
+                        echo'<p>Votre message a bien été envoyé!
+                        <br /><br />Cliquez <a href="./index.php">ici</a> pour revenir à l index du
+                        forum<br />
+                        <br />Cliquez <a href="./messagesprives.php">ici</a> pour retourner à
+                        la messagerie</p>';
+                      }
+                      //Sinon l'utilisateur n'existe pas !
+                      else
+                      {
+                        echo'<p>Désolé ce membre n existe pas, veuillez vérifier et
+                        réessayez à nouveau.</p>';
+                      }
+                      break;
+
                 default;
                 echo'<p>Cette action est impossible</p>';
               } //Fin du Switch
