@@ -9,7 +9,6 @@
     include("includes/menu.php");
 ?>
 
-<h1>Mon super forum</h1>
 
 <?php
     //Initialisation de deux variables
@@ -40,16 +39,13 @@
     if( $categorie != $data['cat_id'] )
     {
        
-        $categorie = $data['cat_id'];
-        ?>
-        <tr>
-        <th></th>
-        <th class="titre"><strong><?php echo stripslashes(htmlspecialchars($data['cat_nom'])); ?>
-        </strong></th>             
-        <th class="nombremessages"><strong>Sujets</strong></th>       
-        <th class="nombresujets"><strong>Messages</strong></th>       
-        <th class="derniermessage"><strong>Dernier message</strong></th>   
-        </tr>
+        $categorie = $data['cat_id'];?>
+	<tr class="tr-base">
+        <th class="titre"><strong><?php echo stripslashes(htmlspecialchars($data['cat_nom'])); ?></strong></th>             
+        <th class="nombremessages">Sujets</strong></th>       
+        <th class="nombresujets">Messages</th>       
+        <th class="derniermessage">Dernier message</th>   
+	</tr>
         <?php
                
     }
@@ -57,11 +53,11 @@
     ?>
 <?php
 
-        echo'<tr><td><img src="./images/message.gif" alt="message" /></td>
+        echo'<tr>
 	        <td class="titre"><strong>
 		    <a href="./voirforum.php?f='.$data['forum_id'].'">
 		        '.stripslashes(htmlspecialchars($data['forum_name'])).'</a></strong>
-			    <br />'.nl2br(stripslashes(htmlspecialchars($data['forum_desc']))).'</td>
+			<br /><div class="descr-rubri">'.nl2br(stripslashes(htmlspecialchars($data['forum_desc']))).'</div></td>
 			        <td class="nombresujets">'.$data['forum_topic'].'</td>
 				    <td class="nombremessages">'.$data['forum_post'].'</td>';
 
@@ -73,9 +69,7 @@
 				 
          echo'<td class="derniermessage">
          '.date('H\hi \l\e d/M/Y',$data['post_time']).'<br />
-         <a href="./voirprofil.php?m='.stripslashes(htmlspecialchars($data['membre_id'])).'&amp;action=consulter">'.$data['membre_pseudo'].'  </a>
-         <a href="./voirtopic.php?t='.$data['topic_id'].'&amp;page='.$page.'#p_'.$data['post_id'].'">
-         <img src="./images/go.gif" alt="go" /></a></td></tr>';
+         <a href="./voirprofil.php?m='.stripslashes(htmlspecialchars($data['membre_id'])).'&amp;action=consulter">'.$data['membre_pseudo'].' </a></td></tr>';
 
 			      }
          else
@@ -85,29 +79,25 @@
 
      $totaldesmessages += $data['forum_post'];
 
-}
+    }
+
+
 $query->CloseCursor();
 echo '</table></div>';
 ?>
-
+<div id="footer">
+    <a class="btn-connexion" href="connexion.php" >connexions</a>
 <?php
-echo'<div id="footer">
-    <h2>
-Qui est en ligne ?
-</h2>
-';
-
 $TotalDesMembres = $db->query('SELECT COUNT(*) FROM forum_membres')->fetchColumn();
 $query->CloseCursor();	
 $query = $db->query('SELECT membre_pseudo, membre_id FROM forum_membres ORDER BY membre_id DESC LIMIT 0, 1');
 $data = $query->fetch();
 $derniermembre = stripslashes(htmlspecialchars($data['membre_pseudo']));
-
-echo'<p>Le total des messages du forum est <strong>'.$totaldesmessages.'</strong>.<br />';
-echo'Le site et le forum comptent <strong>'.$TotalDesMembres.'</strong> membres.<br />';
-echo'Le dernier membre est <a href="./voirprofil.php?m='.$data['membre_id'].'&amp;action=consulter">'.$derniermembre.'</a>.</p>';
-$query->CloseCursor();
 ?>
+
+    <p>Le total des messages du forum est <strong><?php echo $totaldesmessages ?></strong>.<br />
+Le site et le forum comptent <strong><?php echo $TotalDesMembres; ?></strong> membres.<br /></p>
+<?php $query->CloseCursor();?>
     </div>
     </body>
     </html>

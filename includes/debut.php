@@ -33,8 +33,9 @@ ini_set('display_errors','1');
 $lvl=(isset($_SESSION['level']))?(int) $_SESSION['level']:1;
 $id=(isset($_SESSION['id']))?(int) $_SESSION['id']:0;
 $pseudo=(isset($_SESSION['pseudo']))?$_SESSION['pseudo']:'';
-
+date_default_timezone_set('Europe/Brussels');
 //On inclue les 2 pages restantes
 include("function.php");
 include("constants.php");
 ?>
+

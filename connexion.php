@@ -5,10 +5,11 @@
 	include("includes/debut.php");
 	include("includes/menu.php");
 	echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Connexion';
-	echo '<input type="hidden" name="page" value="'.$_SERVER['HTTP_REFERER'].'" />';
+	
+	//echo '<input type="hidden" name="page" value="'.$_SERVER['HTTP_REFERER'].'" />';
 
 	echo '<h1>Connexion</h1>';
-	if ($id!=0) erreur(ERR_IS_CO);
+	//if ($id!=0) erreur(ERR_IS_CO);
 
 	if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
 	{
@@ -25,7 +26,7 @@
 				<input type="submit" value="Connexion" />
 			</p>
 		</form>
-		<a href="includes/register.php">Pas encore inscrit ?</a>
+		<!--<a href="register.php">Pas encore inscrit ?</a>-->
 
 		</div>
 	</body>
@@ -56,7 +57,7 @@
 					vous êtes maintenant connecté!</p>
 					<p>Cliquez <a href="./index.php">ici</a>
 					pour revenir à la page d accueil</p>';
-					$page = htmlspecialchars($_POST['page']);
+					$page = $_POST['page'];
 					echo 'Cliquez <a href="'.$page.'">ici</a> pour revenir à la page précédente';
 
 				}
@@ -71,7 +72,7 @@
 				}
 				$query->CloseCursor();
 			}
-			echo $message.'</div></body></html>';
+			echo $message.'</div></html></body>';
 
 		}
 ?>

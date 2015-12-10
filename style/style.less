@@ -1,14 +1,105 @@
-@color:pink;
+@background:#F8F8F8;
+@color:#000000;
+@fontSmall:8pt;
+@fontMedium:10pt;
 
+.bd{
+    border: 1px solid red;
+}
 body{
-    background:@color;
+    background:@background;
+    color:@color;
     font-family:'openSans';
     font-weight:normal;
 }
 
-.salut(x,y){
-    top:@x;
-    left:@y;
+#footer{
+    font-size:@fontSmall;
+    width:100%;
+    height: auto;
+    position:fixed;
+    bottom:0px;
+    h2{
+	font-size:@fontMedium;	
+    }
+}
+
+#corps_forum{
+    margin:0 auto;
+    width: 800px;
+    tr, td, tr{
+	font-size:@fontMedium;
+    }
+    tr td:nth-of-type(2),
+    tr td:nth-of-type(3)
+    {
+	text-align: center;
+    }
+    tr td:nth-of-type(4){
+	text-align:right;
+    }
+    .tr-base{
+	text-transform:uppercase;
+	height:40px;
+	margin-top:200px;
+	position:relative;
+	//transform: scale(1,1.5);
+	//transform-origin: 0 0;
+    }
+
+    .titre{
+	font-size:@fontMedium;
+	width:40%;
+    }
+
+    table{
+	width:100%;
+    }
+    .descr-rubri{
+	margin-left:10px;
+	font-size:@fontMedium;
+    }
+
+}
+
+.btn-type1{
+    border: @color 1px solid;
+    padding: 5px;
+    font-size:@fontSmall;
+  
+}
+.btn-type1:hover{
+    background: @color;
+    color: @background;
+
+}
+/*STYLE MESSAGES TOPIC*/
+
+
+.membre_topic{
+    border-right: 1px @color solid;
+    width:120px;
+    img{
+	width:100px;
+	height:auto;
+    }
+}
+.message_topic{
+    div{
+	text-align: left;
+    }
+    margin-left: 170px;
+    position:relative;
+}
+.signature_topic{
+    font-size:@fontSmall;
+}
+a{
+    color:@color;
+}
+
+hr{
+    height: 0px; color: #839D2D; width: 100%; border-top: 1px solid @color;
 }
 
 @font-face{
@@ -23,4 +114,5 @@ body{
     src:url('fonts/OpenSans-Regular.ttf');
     font-style:normal;
     font-weight:normal;
+
 }

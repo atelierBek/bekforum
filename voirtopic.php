@@ -24,10 +24,10 @@ $query=$db->prepare('SELECT topic_titre, topic_post, forum_topic.forum_id, topic
   $nombreDePages = ceil($totalDesMessages / $nombreDeMessagesParPage);
 
 
-  echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> -->
+  echo '<p><a href="./index.php">Index du forum</a> -->
   <a href="./voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>
   --> <a href="./voirtopic.php?t='.$topic.'">'.stripslashes(htmlspecialchars($data['topic_titre'])).'</a>';
-  echo '<h1>'.stripslashes(htmlspecialchars($data['topic_titre'])).'</h1><br /><br />';
+  echo '<h2>'.stripslashes(htmlspecialchars($data['topic_titre'])).'</h2><br />';
 
 
   //Nombre de pages
@@ -52,13 +52,9 @@ $query=$db->prepare('SELECT topic_titre, topic_post, forum_topic.forum_id, topic
   $premierMessageAafficher = ($page - 1) * $nombreDeMessagesParPage;
 
 
-  //On affiche l'image répondre
-  echo'<a href="./poster.php?action=repondre&amp;t='.$topic.'">
-  <img src="./images/repondre.gif" alt="Répondre" title="Répondre à ce topic" /></a>';
 
-  //On affiche l'image nouveau topic
-  echo'<a href="./poster.php?action=nouveautopic&amp;f='.$data['forum_id'].'">
-  <img src="./images/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a>';
+
+
   $query->CloseCursor();
   //Enfin on commence la boucle !
 
@@ -106,12 +102,8 @@ $query=$db->prepare('SELECT topic_titre, topic_post, forum_topic.forum_id, topic
           if ($id == $data['post_createur'])
           {
             echo'<td id=p_'.$data['post_id'].'>Posté à '.date('H\hi \l\e d M y',$data['post_time']).'
-            <a href="./poster.php?p='.$data['post_id'].'&amp;action=delete">
-            <img src="./images/supprimer.gif" alt="Supprimer"
-            title="Supprimer ce message" /></a>
-            <a href="./poster.php?p='.$data['post_id'].'&amp;action=edit">
-            <img src="./images/editer.gif" alt="Editer"
-            title="Editer ce message" /></a></td></tr>';
+            <a href="poster.php?p='.$data['post_id'].'&amp;action=delete">suprimer</a>
+            <a href="poster.php?p='.$data['post_id'].'&amp;action=edit">éditer</a></td></tr>';
           }
           else
           {
@@ -121,15 +113,15 @@ $query=$db->prepare('SELECT topic_titre, topic_post, forum_topic.forum_id, topic
           }
 
           //Détails sur le membre qui a posté
-          echo'<tr><td>
+          echo'<tr><td class="membre_topic">
           <img src="./images/avatars/'.$data['membre_avatar'].'" alt="" />
           <br />Membre inscrit le '.date('d/m/Y',$data['membre_inscrit']).'
           <br />Messages : '.$data['membre_post'].'<br />
           Localisation : '.stripslashes(htmlspecialchars($data['membre_localisation'])).'</td>';
 
           //Message
-          echo'<td>'.code(nl2br(stripslashes(htmlspecialchars($data['post_texte'])))).'
-          <br /><hr />'.code(nl2br(stripslashes(htmlspecialchars($data['membre_signature'])))).'</td></tr>';
+          echo'<td class="message_topic"><div>'.code(nl2br(stripslashes(htmlspecialchars($data['post_texte'])))).'
+          <br />------<br /><div class="signature_topic">'.code(nl2br(stripslashes(htmlspecialchars($data['membre_signature'])))).'</div></div><hr></td></tr><hr>';
         } //Fin de la boucle ! \o/
         $query->CloseCursor();
 
@@ -159,6 +151,11 @@ $query=$db->prepare('SELECT topic_titre, topic_post, forum_topic.forum_id, topic
         $query->CloseCursor();
 
       } //Fin du if qui vérifiait si le topic contenait au moins un message
+
+
+      //On affiche l'image répondre
+      echo'<a class="btn-type1" href="./poster.php?action=repondre&amp;t='.$topic.'">
+      Répondre</a>';
       ?>
     </div>
   </body>

@@ -40,7 +40,7 @@ switch($action)
        <a href="'.stripslashes($data['membre_siteweb']).'">'.stripslashes(htmlspecialchars($data['membre_siteweb'])).'</a>
        <br /><br />';
 
-       echo'Ce membre est inscrit depuis le
+	echo'Ce membre est inscrit depuis le
        <strong>'.date('d/m/Y',$data['membre_inscrit']).'</strong>
        et a posté <strong>'.$data['membre_post'].'</strong> messages
        <br /><br />';

@@ -20,8 +20,13 @@ $nombreDeMessagesParPage = 25;
 $nombreDePages = ceil($totalDesMessages / $nombreDeMessagesParPage);
 
 
-echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> -->
+echo '<p><a href="./index.php">Index du forum</a> -->
 <a href="./voirforum.php?f='.$forum.'">'.stripslashes(htmlspecialchars($data['forum_name'])).'</a>';
+
+
+
+//Le titre du forum
+echo '<h2>'.stripslashes(htmlspecialchars($data['forum_name'])).'</h2>';
 
 //Nombre de pages
 
@@ -47,14 +52,7 @@ echo '</p>';
 
 $premierMessageAafficher = ($page - 1) * $nombreDeMessagesParPage;
 
-//Le titre du forum
-echo '<h1>'.stripslashes(htmlspecialchars($data['forum_name'])).'</h1><br /><br />';
 
-
-//Et le bouton pour poster
-echo'<a href="./poster.php?action=nouveautopic&amp;f='.$forum.'">
-<img src="./images/nouveau.gif" alt="Nouveau topic" title="Poster un nouveau topic" /></a>';
-$query->CloseCursor();
 
 
 //On prend tout ce qu'on a sur les Annonces du forum
@@ -148,7 +146,7 @@ $query=$db->prepare('SELECT forum_topic.topic_id, topic_titre, topic_createur, t
       ?>
       <table>
         <tr>
-          <th><img src="./images/message.gif" alt="Message" /></th>
+         
           <th class="titre"><strong>Titre</strong></th>
           <th class="nombremessages"><strong>Réponses</strong></th>
           <th class="nombrevu"><strong>Vus</strong></th>
@@ -161,7 +159,7 @@ $query=$db->prepare('SELECT forum_topic.topic_id, topic_titre, topic_createur, t
         while ($data = $query->fetch())
         {
           //Ah bah tiens... re vla l'echo de fou
-          echo'<tr><td><img src="./images/message.gif" alt="Message" /></td>
+          echo'<tr>
 
           <td class="titre">
           <strong><a href="./voirtopic.php?t='.$data['topic_id'].'"
@@ -198,7 +196,10 @@ $query=$db->prepare('SELECT forum_topic.topic_id, topic_titre, topic_createur, t
         echo'<p>Ce forum ne contient aucun sujet actuellement</p>';
       }
       $query->CloseCursor();
-
+	//Et le bouton pour poster
+	echo'<br /><a class="btn-type1" href="poster.php?action=nouveautopic&amp;f='.$forum.'">
+	Nouveau topic</a><br /><br />';
+	$query->CloseCursor();
       ?>
     </div>
   </body></html>
