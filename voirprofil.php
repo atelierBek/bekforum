@@ -25,7 +25,7 @@ switch($action)
        //On affiche les infos sur le membre
        echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> -->
        profil de '.stripslashes(htmlspecialchars($data['membre_pseudo']));
-       echo'<h1>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).'</h1>';
+       echo'<h1>Profil de '.stripslashes(htmlspecialchars($data['membre_pseudo'])).' <sup><a class="btn-connexion" href="voirprofil.php?m=2&action=modifier" >modifier</a></sup></h1>';
 
        echo'<img src="./images/avatars/'.$data['membre_avatar'].'"
        alt="Ce membre n a pas d avatar" />';
@@ -313,6 +313,4 @@ echo'<p>Cette action est impossible</p>';
 } //Fin du switch
 ?>
 </div>
-</body>
-</html>
-</html>
+<?php include('includes/footer.php') ?>
